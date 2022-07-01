@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEAR Web4 Online Hackathon</title>
+
+    <meta name="og:title" content="NEAR Web4 Online Hackathon"/>
+    <meta name="og:description" content="NEAR Web4 Online Hackathon"/>
+
+    <link href="https://fonts.googleapis.com/css?family=Outfit:100,200,300,regular,500,600,700,800,900"
+          rel="stylesheet"/>
+
+    <style>
+        %STYLESHEET%
+    </style>
+
+    <script>
+        window.addEventListener("load", function () {
+            const form = document.getElementById("register");
+
+            form.addEventListener("submit", function (event) {
+                event.preventDefault();
+
+                fetch("https://rest.nearapi.org/sign_url", {
+                    method: "POST",
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({
+                        account_id: document.getElementById("account_id").value,
+                        method: "register",
+                        params: {
+                            application:
+                                {
+                                    description: document.getElementById("description").value,
+                                    github_url: document.getElementById("github_url").value,
+                                    contact_data: document.getElementById("contact_data").value,
+                                    contract_id: document.getElementById("contract_id").value,
+                                    youtube_url: document.getElementById("youtube_url").value,
+                                }
+                        },
+                        deposit: 0,
+                        gas: "20000000000000",
+                        receiver_id: "%CONTRACT_ID%",
+                        meta: "",
+                        callback_url: "https://%CONTRACT_ID%.page",
+                        network: "%NETWORK%"
+                    })
+                })
+                    .then(resp => resp.text())
+                    .then(url => {
+                        console.log("Redirecting to: ", url);
+                        window.location.replace(url);
+                    });
+            });
+        });
+    </script>
+</head>
+
+<body>
+
+<div class="data">
+    <h2>Submit application to Web4 Online Hackathon!</h2>
+
+    <div style="text-align: initial">
+        <form id="register">
+            <p>
+                <label for="account_id">Your Account Id*:</label>
+                <input type="text" value="" id="account_id">
+            </p>
+
+            <p>
+                <label for="contract_id">Contract Account Id*:</label>
+                <input type="text" value="" id="contract_id">
+            </p>
+
+            <p>
+                <label for="description">Description*:</label>
+                <input type="text" value="" id="description">
+            </p>
+
+            <p>
+                <label for="github_url">Github Url*:</label>
+                <input type="text" value="" id="github_url">
+            </p>
+
+            <p>
+                <label for="contact_data">Your contacts*:</label>
+                <input type="text" value="" id="contact_data">
+            </p>
+
+            <p>
+                <label for="youtube_url">Youtube Url:</label>
+                <input type="text" value="" id="youtube_url">
+            </p>
+
+            <input type="submit" style="padding:10px">
+        </form>
+    </div>
+</div>
+</body>
+</html>
