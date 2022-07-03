@@ -85,7 +85,7 @@ impl Contract {
                 include_str!("../res/register.html")
                     .replace("%STYLESHEET%", &STYLES_BODY)
                     .replace("%CONTRACT_ID%", &env::current_account_id().to_string())
-                    .replace("%NETWORK%", "testnet")
+                    .replace("%NETWORK%", "mainnet")
             );
         }
 
