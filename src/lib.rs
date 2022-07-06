@@ -38,7 +38,7 @@ impl Contract {
     }
 
     pub fn register (&mut self, application: Option<ApplicationData>) {
-        assert!(env::block_timestamp() <= 1657864800000000000, "ERR_TO_LATE");
+        assert!(env::block_timestamp() <= 1657864800000000000, "ERR_TOO_LATE");
         self.applications.insert(&env::predecessor_account_id(), &application);
     }
 
